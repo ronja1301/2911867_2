@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Welcome to the dropbox application</title>
+<title>Welcome to the dropbox application :)</title>
 <style>
 * {
 	font-family: Calibri;
