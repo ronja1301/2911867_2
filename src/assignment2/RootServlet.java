@@ -31,6 +31,8 @@ public class RootServlet extends DropboxUtilityServlet {
 			
 			//load current directory
 			DropboxDirectory currentDir = Datastore.readDirectory(getCurrentUser(), getCurrentPath(req));
+
+			
 			//display subDirectories and fileNames
 			try
 			{
