@@ -24,7 +24,7 @@ public class RootServlet extends DropboxUtilityServlet {
 		resp.setContentType("text/html");
 		this.setUserServiceParameters(req);
 		
-		if (isCurrentUser()) //user is logged in 
+		if (getCurrentUser()!=null) //user is logged in 
 		{
 			//initialize dropbox user if not already done
 			initializeDropboxUser();
@@ -51,6 +51,16 @@ public class RootServlet extends DropboxUtilityServlet {
 			//uploadURL for uploading blobs
 			req.setAttribute("uploadURL",BlobstoreServiceFactory.getBlobstoreService().createUploadUrl("/files"));
 		}
+		else
+		{
+			HttpSession session = req.getSession(false);
+			if(req.getSession(false)!=null)
+			{
+				session.invalidate();
+				req.getSession(true);
+				req.getSession().setAttribute("currentPath", "/");
+			}
+		}
 		
 		// forward on the request to the JSP
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/root.jsp");
@@ -72,7 +82,6 @@ public class RootServlet extends DropboxUtilityServlet {
 	}
 	
 	private void setUserServiceParameters(HttpServletRequest req) {
-
 		// we need to get access to the google user service
 		UserService us = UserServiceFactory.getUserService();
 		String login_url = us.createLoginURL("/");

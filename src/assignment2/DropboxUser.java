@@ -11,10 +11,10 @@ public class DropboxUser {
 	
 	@PrimaryKey
 	@Persistent
-	private Key id;
+	private Key key;
 	
-	public DropboxUser (Key id){
+	public DropboxUser (Key key){
 		
-		this.id = id;
+		this.key = key;
 	}
 }

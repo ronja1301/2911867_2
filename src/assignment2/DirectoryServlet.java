@@ -17,23 +17,20 @@ public class DirectoryServlet extends DropboxUtilityServlet {
 		
 		if (value == null) //error! 
 		{	
-			System.err.println("[DirectoryServlet] - invalid value for button determination");
+			System.err.println("Invalid!");
 		} 
 		else if (value.compareToIgnoreCase("add") == 0) //add button has been pressed 
 		{	
-			System.out.println("[DirectoryServlet] - add button has been pressed");
 			String message = addDirectory(req);
 			req.setAttribute("message", message);
 		}
 		else if (value.compareToIgnoreCase("change") == 0) //change button has been pressed 
 		{
-			System.out.println("[DirectoryServlet] - change button has been pressed");
 			String message = changeDirectory(req);
 			req.setAttribute("message", message);
 		}
 		else if (value.compareToIgnoreCase("delete") == 0) //delete button has been pressed 
 			{
-			System.out.println("[DirectoryServlet] - delete button has been pressed");
 			String message = deleteDirectory(req);
 			req.setAttribute("message", message);
 			}
@@ -79,15 +76,13 @@ public class DirectoryServlet extends DropboxUtilityServlet {
 			}
 			parentPath += "/";
 			
-			System.out.println("[changeDirectory] - User wants to change directory to "+parentPath);
-			setCurrentPath(req, parentPath);
+			req.getSession().setAttribute("currentPath", parentPath);
 			message = "You are now in directory " + parentPath + "!";
 			return message;
 		}
 		else //user wants to go one level down
 		{
-			System.out.println("[changeDirectory] - User wants to change directory to "+getCurrentPath(req) + destinationDir);
-			setCurrentPath(req, getCurrentPath(req) + destinationDir);
+			req.getSession().setAttribute("currentPath", getCurrentPath(req) + destinationDir);
 			String message = "You are now in directory " + getCurrentPath(req);
 			return message;
 		}
